@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) NSFetchRequest *fetchRequest;
 
 @end
 
