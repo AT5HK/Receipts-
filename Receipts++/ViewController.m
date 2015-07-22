@@ -7,12 +7,16 @@
 //
 
 #import "ViewController.h"
+#import "ReceiptViewController.h"
+#import "Receipt.h"
+#import "Tag.h"
 
 @interface ViewController ()
 
 @property (nonatomic) NSArray *receiptsObjects;
 @property (nonatomic) UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) NSMutableArray *headers;
 
 
 @end
@@ -21,15 +25,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.headers = [NSMutableArray array];
     [self runFetch];
+    
 }
 
--(void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.tableView reloadData];
-}
-
-#pragma mark - Table View
+#pragma mark - Table View DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -43,6 +44,11 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    NSString *headerTitle = [self.headers[section]anyObject];
+    return headerTitle;
 }
 
 #pragma mark - Fetch request
@@ -84,7 +90,31 @@
         NSLog(@"%@, %@", error, error.localizedDescription);
         
     } else {
-        NSLog(@"%@", self.receiptsObjects);
+        for (Receipt *receiptObject in self.receiptsObjects) {
+            NSSet *tags = receiptObject.tag;
+            Tag *tag = [tags anyObject];
+            [self.headers addObject:tag.tagName];
+        }
+        NSLog(@"All the tag names: %@", self.headers);
+    }
+}
+
+#pragma mark - segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ReceiptViewController"])  {
+        ReceiptViewController *receiptviewController = segue.destinationViewController;
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        receiptviewController.managedObjectReceipt = self.receiptsObjects[indexPath.row];
+    }
+}
+
+- (IBAction)unwindToMaster:(UIStoryboardSegue *)unwindSegue
+{
+    ReceiptViewController *editReceiptVC = unwindSegue.sourceViewController;
+    
+    if ([editReceiptVC isKindOfClass:[ReceiptViewController class]]) {
+        [self.tableView reloadData];
     }
 }
 
@@ -110,6 +140,7 @@
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
+        //add objecct to receiptsObjects array
         NSMutableArray *mutableReceiptObjects = self.receiptsObjects.mutableCopy;
         [mutableReceiptObjects addObject:newManagedObject];
         self.receiptsObjects = mutableReceiptObjects;

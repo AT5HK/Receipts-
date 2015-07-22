@@ -15,6 +15,9 @@
 		506764D81B5EBE1800EE4014 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506764D71B5EBE1800EE4014 /* Images.xcassets */; };
 		506764DB1B5EBE1800EE4014 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 506764D91B5EBE1800EE4014 /* LaunchScreen.xib */; };
 		506764E71B5EBE1800EE4014 /* Receipts__Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 506764E61B5EBE1800EE4014 /* Receipts__Tests.m */; };
+		506764F21B5EE66200EE4014 /* ReceiptViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 506764F11B5EE66200EE4014 /* ReceiptViewController.m */; };
+		506764F81B5F158900EE4014 /* Receipt.m in Sources */ = {isa = PBXBuildFile; fileRef = 506764F71B5F158900EE4014 /* Receipt.m */; };
+		506764FB1B5F161700EE4014 /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 506764FA1B5F161700EE4014 /* Tag.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,12 @@
 		506764E01B5EBE1800EE4014 /* Receipts++Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Receipts++Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		506764E51B5EBE1800EE4014 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		506764E61B5EBE1800EE4014 /* Receipts__Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Receipts__Tests.m; sourceTree = "<group>"; };
+		506764F01B5EE66200EE4014 /* ReceiptViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReceiptViewController.h; sourceTree = "<group>"; };
+		506764F11B5EE66200EE4014 /* ReceiptViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReceiptViewController.m; sourceTree = "<group>"; };
+		506764F61B5F158900EE4014 /* Receipt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Receipt.h; sourceTree = "<group>"; };
+		506764F71B5F158900EE4014 /* Receipt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Receipt.m; sourceTree = "<group>"; };
+		506764F91B5F161700EE4014 /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		506764FA1B5F161700EE4014 /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,10 +92,16 @@
 		506764C61B5EBE1800EE4014 /* Receipts++ */ = {
 			isa = PBXGroup;
 			children = (
+				506764F91B5F161700EE4014 /* Tag.h */,
+				506764FA1B5F161700EE4014 /* Tag.m */,
+				506764F61B5F158900EE4014 /* Receipt.h */,
+				506764F71B5F158900EE4014 /* Receipt.m */,
 				506764CB1B5EBE1800EE4014 /* AppDelegate.h */,
 				506764CC1B5EBE1800EE4014 /* AppDelegate.m */,
 				506764D11B5EBE1800EE4014 /* ViewController.h */,
 				506764D21B5EBE1800EE4014 /* ViewController.m */,
+				506764F01B5EE66200EE4014 /* ReceiptViewController.h */,
+				506764F11B5EE66200EE4014 /* ReceiptViewController.m */,
 				506764D41B5EBE1800EE4014 /* Main.storyboard */,
 				506764D71B5EBE1800EE4014 /* Images.xcassets */,
 				506764D91B5EBE1800EE4014 /* LaunchScreen.xib */,
@@ -224,7 +239,10 @@
 			files = (
 				506764CD1B5EBE1800EE4014 /* AppDelegate.m in Sources */,
 				506764CA1B5EBE1800EE4014 /* main.m in Sources */,
+				506764F81B5F158900EE4014 /* Receipt.m in Sources */,
+				506764FB1B5F161700EE4014 /* Tag.m in Sources */,
 				506764D31B5EBE1800EE4014 /* ViewController.m in Sources */,
+				506764F21B5EE66200EE4014 /* ReceiptViewController.m in Sources */,
 				506764D01B5EBE1800EE4014 /* Receipts__.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

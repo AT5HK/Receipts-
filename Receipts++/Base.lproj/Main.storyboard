@@ -34,6 +34,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="b49-lf-eCH" kind="presentation" identifier="ReceiptViewController" id="b3O-cF-PUf"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -49,7 +52,6 @@
                                 </state>
                                 <connections>
                                     <action selector="addReceipt:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="bya-M4-ujC"/>
-                                    <segue destination="b49-lf-eCH" kind="presentation" identifier="DetailViewController" id="3m4-kh-dA8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -70,11 +72,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="423" y="233"/>
         </scene>
-        <!--View Controller-->
+        <!--Receipt View Controller-->
         <scene sceneID="bT6-dH-Hes">
             <objects>
-                <viewController id="b49-lf-eCH" sceneMemberID="viewController">
+                <viewController id="b49-lf-eCH" customClass="ReceiptViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tXZ-PC-jhg"/>
                         <viewControllerLayoutGuide type="bottom" id="0bA-sf-A4e"/>
@@ -93,21 +96,31 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add one ore multiple Tags" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFJ-1U-7F5">
-                                <rect key="frame" x="16" y="453" width="568" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qoV-iL-Igy">
-                                <rect key="frame" x="16" y="550" width="568" height="30"/>
+                                <rect key="frame" x="16" y="508" width="568" height="30"/>
                                 <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Save to receipt">
                                     <color key="titleColor" red="0.0" green="0.50196081399917603" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveManagedObject:" destination="b49-lf-eCH" eventType="touchUpInside" id="jx9-S8-nyW"/>
+                                    <segue destination="CQ6-Gw-izd" kind="unwind" unwindAction="unwindToMaster:" id="zSk-Ba-JaE"/>
+                                </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time Stamp" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xa4-8W-oiZ">
-                                <rect key="frame" x="16" y="160" width="568" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Udg-gE-xkr">
+                                <rect key="frame" x="16" y="550" width="568" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Cancel">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="CQ6-Gw-izd" kind="unwind" unwindAction="unwindToMaster:" id="qFD-G5-fpr"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add one ore multiple Tags" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aFJ-1U-7F5">
+                                <rect key="frame" x="16" y="453" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -117,24 +130,32 @@
                             <constraint firstItem="3bA-Y0-q4r" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="0r0-5k-opF"/>
                             <constraint firstItem="QgG-64-sdg" firstAttribute="top" secondItem="3bA-Y0-q4r" secondAttribute="bottom" constant="30" id="1ip-rR-pJr"/>
                             <constraint firstItem="3bA-Y0-q4r" firstAttribute="top" secondItem="tXZ-PC-jhg" secondAttribute="bottom" constant="20" id="2K7-Ie-lGl"/>
+                            <constraint firstItem="aFJ-1U-7F5" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="4q2-Mc-rUw"/>
                             <constraint firstItem="QgG-64-sdg" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="5Ry-LT-phT"/>
-                            <constraint firstItem="0bA-sf-A4e" firstAttribute="top" secondItem="qoV-iL-Igy" secondAttribute="bottom" constant="20" id="5iE-v5-lg3"/>
-                            <constraint firstItem="qoV-iL-Igy" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="Apn-J2-fOB"/>
+                            <constraint firstItem="0bA-sf-A4e" firstAttribute="top" secondItem="Udg-gE-xkr" secondAttribute="bottom" constant="20" id="6f8-u5-jzF"/>
+                            <constraint firstItem="qoV-iL-Igy" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="BY1-0t-Xud"/>
+                            <constraint firstItem="qoV-iL-Igy" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="Br4-qW-zfX"/>
+                            <constraint firstItem="Udg-gE-xkr" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="KYe-UC-rhN"/>
+                            <constraint firstItem="aFJ-1U-7F5" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="MsU-BI-Tkn"/>
                             <constraint firstItem="aFJ-1U-7F5" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="T79-Gf-3vZ"/>
-                            <constraint firstItem="xa4-8W-oiZ" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="U2N-AX-QYs"/>
                             <constraint firstItem="QgG-64-sdg" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="ZL4-6j-hCn"/>
                             <constraint firstItem="aFJ-1U-7F5" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="aUQ-ts-2kz"/>
-                            <constraint firstItem="xa4-8W-oiZ" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="hAi-8a-Xc8"/>
-                            <constraint firstItem="qoV-iL-Igy" firstAttribute="top" secondItem="aFJ-1U-7F5" secondAttribute="bottom" constant="67" id="kwP-ej-7pG"/>
-                            <constraint firstItem="xa4-8W-oiZ" firstAttribute="top" secondItem="QgG-64-sdg" secondAttribute="bottom" constant="30" id="nSp-uC-lHS"/>
+                            <constraint firstItem="qoV-iL-Igy" firstAttribute="top" secondItem="aFJ-1U-7F5" secondAttribute="bottom" constant="25" id="aeR-xp-gpS"/>
+                            <constraint firstItem="Udg-gE-xkr" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="byH-rA-Xlb"/>
+                            <constraint firstItem="Udg-gE-xkr" firstAttribute="top" secondItem="qoV-iL-Igy" secondAttribute="bottom" constant="12" id="c0F-dD-7fc"/>
                             <constraint firstItem="3bA-Y0-q4r" firstAttribute="trailing" secondItem="20r-mv-WHH" secondAttribute="trailingMargin" id="t7L-Jb-w7r"/>
-                            <constraint firstItem="qoV-iL-Igy" firstAttribute="leading" secondItem="20r-mv-WHH" secondAttribute="leadingMargin" id="wOu-08-jO1"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="amountField" destination="3bA-Y0-q4r" id="hdp-c3-wm0"/>
+                        <outlet property="descriptionField" destination="QgG-64-sdg" id="CvD-zP-dx1"/>
+                        <outlet property="tagsField" destination="aFJ-1U-7F5" id="rcv-52-eKC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rkb-6O-7ZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="CQ6-Gw-izd" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1046" y="306"/>
+            <point key="canvasLocation" x="1067" y="233"/>
         </scene>
     </scenes>
 </document>
