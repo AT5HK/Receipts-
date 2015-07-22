@@ -19,9 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.amountField.text = [[self.managedObjectReceipt valueForKey:@"amount"]stringValue];
-//    self.descriptionField.text = [self.managedObjectReceipt valueForKey:@"descrptionProp"];
-//    self.tagsField.text = [[self.managedObjectReceipt valueForKeyPath:@"tag.tagName"]anyObject];
 }
 
 -(IBAction)saveManagedObject:(id)sender {
@@ -41,7 +38,6 @@
         NSLog(@"Unable to save managed object context.");
         NSLog(@"%@, %@", error, error.localizedDescription);
     }
-
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
