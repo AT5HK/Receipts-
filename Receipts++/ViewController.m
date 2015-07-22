@@ -37,10 +37,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//    NSString *arrayKey = [[self.headers allKeys]objectAtIndex:section];
-//    Receipt *managedObj = [self.headers objectForKey:arrayKey];
-//    return managedObj.tag.count;
-    return self.receiptsObjects.count;
+    NSString *arrayKey = [[self.headers allKeys]objectAtIndex:section];
+    Receipt *managedObj = [self.headers objectForKey:arrayKey];
+    return managedObj.tag.count;
+//    return self.receiptsObjects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,7 +81,7 @@
 #pragma mark - helper methods
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = [self.receiptsObjects objectAtIndex:indexPath.row];
+    NSManagedObject *object = self.receiptsObjects[indexPath.section];
     cell.textLabel.text = [object valueForKey:@"descrptionProp"];
 }
 
@@ -108,8 +108,8 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ReceiptViewController"])  {
         ReceiptViewController *receiptviewController = segue.destinationViewController;
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        receiptviewController.managedObjectReceipt = self.receiptsObjects[indexPath.row];
+//        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        receiptviewController.managedObjectReceipt = [self.receiptsObjects lastObject];
     }
 }
 
@@ -118,46 +118,54 @@
     ReceiptViewController *editReceiptVC = unwindSegue.sourceViewController;
     
     if ([editReceiptVC isKindOfClass:[ReceiptViewController class]]) {
+        for (Receipt *receiptObject in self.receiptsObjects) {
+            NSSet *tags = receiptObject.tag;
+            for (Tag *storedTags in tags) {
+                [self.headers setObject:receiptObject forKey:storedTags.tagName];
+            }
+        }
         [self.tableView reloadData];
+        NSLog(@"ssf");
     }
 }
 
 #pragma mark - IBAction add receipt
 
 - (IBAction)addReceipt:(id)sender {
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Name the receipt" message:@"Input a name for your receipt!" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *save = [UIAlertAction actionWithTitle:@"save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        //persist data
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Name the receipt" message:@"Input a name for your receipt!" preferredStyle:UIAlertControllerStyleAlert];
+//    
+//    UIAlertAction *save = [UIAlertAction actionWithTitle:@"save" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        //persist data
         NSEntityDescription *entity = [NSEntityDescription entityForName:@"Receipt" inManagedObjectContext:self.managedObjectContext];
         NSManagedObject *newManagedObject = [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:self.managedObjectContext];
         
-        // If appropriate, configure the new managed object.
-        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-        [newManagedObject setValue:self.textField.text forKey:@"descrptionProp"];
-        
-        // Save the context.
-        NSError *error = nil;
-        if (![_managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
+//        // If appropriate, configure the new managed object.
+//        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+//        [newManagedObject setValue:self.textField.text forKey:@"descrptionProp"];
+//        
+//        // Save the context.
+//        NSError *error = nil;
+//        if (![_managedObjectContext save:&error]) {
+//            // Replace this implementation with code to handle the error appropriately.
+//            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//            abort();
+//        }
         //add objecct to receiptsObjects array
         NSMutableArray *mutableReceiptObjects = self.receiptsObjects.mutableCopy;
         [mutableReceiptObjects addObject:newManagedObject];
         self.receiptsObjects = mutableReceiptObjects;
-        [self.tableView reloadData];
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
-    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        self.textField = textField;
-    }];
-    
-    [alert addAction:save];
-    [alert addAction:cancel];
-    [self presentViewController:alert animated:YES completion:nil];
+//        [self.tableView reloadData];
+//    }];
+//    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+//    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+//        self.textField = textField;
+//    }];
+//    
+//    [alert addAction:save];
+//    [alert addAction:cancel];
+//    [self presentViewController:alert animated:YES completion:nil];
+    [self performSegueWithIdentifier:@"ReceiptViewController" sender:nil];
 }
 
 @end
