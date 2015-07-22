@@ -16,7 +16,7 @@
 @property (nonatomic) NSArray *receiptsObjects;
 @property (nonatomic) UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic) NSMutableArray *headers;
+@property (nonatomic) NSMutableDictionary *headers;
 
 
 @end
@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.headers = [NSMutableArray array];
+    self.headers = [NSMutableDictionary dictionary];
     [self runFetch];
     
 }
@@ -33,10 +33,13 @@
 #pragma mark - Table View DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return [self.headers allKeys].count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    NSString *arrayKey = [[self.headers allKeys]objectAtIndex:section];
+//    Receipt *managedObj = [self.headers objectForKey:arrayKey];
+//    return managedObj.tag.count;
     return self.receiptsObjects.count;
 }
 
@@ -47,7 +50,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    NSString *headerTitle = [self.headers[section]anyObject];
+    NSString *headerTitle = [[self.headers allKeys]objectAtIndex:section];
     return headerTitle;
 }
 
@@ -92,10 +95,11 @@
     } else {
         for (Receipt *receiptObject in self.receiptsObjects) {
             NSSet *tags = receiptObject.tag;
-            Tag *tag = [tags anyObject];
-            [self.headers addObject:tag.tagName];
+            for (Tag *storedTags in tags) {
+                [self.headers setObject:receiptObject forKey:storedTags.tagName];
+            }
         }
-        NSLog(@"All the tag names: %@", self.headers);
+//        NSLog(@"All the tag names: %@", self.headers);
     }
 }
 
