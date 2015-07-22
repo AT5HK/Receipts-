@@ -37,10 +37,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    NSString *arrayKey = [[self.headers allKeys]objectAtIndex:section];
-    Receipt *managedObj = [self.headers objectForKey:arrayKey];
-    return managedObj.tag.count;
-//    return self.receiptsObjects.count;
+//    NSString *arrayKey = [;
+//    Receipt *managedObj = [self.headers objectForKey:arrayKey];
+            //    return self.receiptsObjects.count;
+    NSString* tagKey = [self.headers allKeys][section];
+    NSArray *tagsArrayForKey = self.headers[tagKey];
+    return tagsArrayForKey.count;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -81,8 +84,11 @@
 #pragma mark - helper methods
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    NSManagedObject *object = self.receiptsObjects[indexPath.section];
-    cell.textLabel.text = [object valueForKey:@"descrptionProp"];
+
+    NSString* tagKey = [self.headers allKeys][indexPath.section];
+    NSArray *tagsArrayForKey = self.headers[tagKey];
+    Receipt *receipt1 = tagsArrayForKey[indexPath.row];
+    cell.textLabel.text = receipt1.descrptionProp;
 }
 
 -(void)runFetch {
@@ -96,10 +102,14 @@
         for (Receipt *receiptObject in self.receiptsObjects) {
             NSSet *tags = receiptObject.tag;
             for (Tag *storedTags in tags) {
-                [self.headers setObject:receiptObject forKey:storedTags.tagName];
+                [self.headers setObject:@[receiptObject] forKey:storedTags.tagName];
+                NSLog(@"receipt object: %@ for Tag %@", receiptObject.descrptionProp, storedTags.tagName);
             }
         }
-//        NSLog(@"All the tag names: %@", self.headers);
+        //NSLog(@"All the tag names: %@", self.headers allKeys);
+        
+        
+        
     }
 }
 
